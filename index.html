@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagas & Elvinda Wedding Invitation</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --navy: #1f3c88;
+            --soft-blue: #dbeafe;
+            --silver: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-signature { font-family: 'Dancing Script', cursive; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .text-navy { color: var(--navy); }
+        .bg-navy { background-color: var(--navy); }
+
+        /* Cinematic Ken Burns Effect */
+        @keyframes kenburns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        .ken-burns {
+            animation: kenburns 20s infinite alternate ease-in-out;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Particles */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .music-rotate {
+            animation: rotate 5s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Hide scrollbar during intro */
+        .no-scroll { overflow: hidden; }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="no-scroll">
+
+    <div id="opening-screen" class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden">
+
+    <!-- Background Video -->
+    <div class="absolute inset-0 opacity-80">
+        <video autoplay muted loop playsinline
+        class="w-full h-full object-contain md:object-cover object-center">
+            <source src="video/v3.MP4" type="video/mp4">
+        </video>
+    </div>
+        
+        <div class="relative z-10 text-center px-4" data-aos="zoom-in" data-aos-duration="1500">
+            <p class="text-white tracking-[0.3em] uppercase text-sm mb-4">The Wedding of</p>
+            <h1 class="text-white font-serif text-5xl md:text-7xl mb-8">Bagas & Elvinda</h1>	
+           
+
+            <button id="btn-open" class="group relative inline-flex items-center justify-center px-8 py-3 font-medium tracking-tighter text-white bg-navy rounded-full group">
+                <span class="absolute inset-0 w-full h-full mt-1 ml-1 transition-all duration-300 ease-in-out /20 rounded-full group-hover:mt-0 group-hover:ml-0"></span>
+                <span class="absolute inset-0 w-full h-full bg-navy/50 border border-white/50 rounded-full"></span>
+                <span class="relative flex items-center gap-2">
+                    <i class="fas fa-envelope-open"></i> Open Invitation
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <div id="music-container" class="fixed bottom-6 right-6 z-[80] hidden">
+        <button id="music-toggle" class="w-12 h-12 glass rounded-full flex items-center justify-center text-navy shadow-xl music-rotate transition-transform active:scale-90">
+            <i class="fas fa-music"></i>
+        </button>
+        <audio id="bg-music" loop>
+            <source src="audio/music2.MPEG" type="audio/mpeg">
+            <!-- Fallback text for the romantic requirement -->
+            <!-- Use a high-quality instrumental link if available -->
+        </audio>
+    </div>
+
+    <main id="main-content" class="relative z-10 opacity-0 transition-opacity duration-1000">
+
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+            <div class="absolute inset-0 opacity-40">
+                <img src="img/BG-1.JFIF" class="w-full h-full object-cover" alt="GM">
+                <div class="absolute inset-0"></div>
+            </div>
+
+            <div class="max-w-4xl" data-aos="fade-up">
+                <p class="text-navy tracking-[0.5em] uppercase text-xs mb-6">Save the Date</p>
+                <h2 class="text-navy font-serif text-6xl md:text-8xl mb-8 leading-tight">Bagas & <br class="md:hidden"> Elvinda</h2>
+                <p class="text-navy/80 font-serif text-xl italic mb-12">"Two souls, one heart. Joining our lives together forever."</p>
+                
+                <!-- Countdown -->
+                <div class="grid grid-cols-4 gap-2 md:gap-6 max-w-xl mx-auto">
+                    <div class="glass p-3 md:p-5 rounded-2xl">
+                        <span id="days" class="block text-2xl md:text-3xl font-bold text-navy">00</span>
+                        <span class="text-[10px] uppercase tracking-widest">Days</span>
+                    </div>
+                    <div class="glass p-3 md:p-5 rounded-2xl">
+                        <span id="hours" class="block text-2xl md:text-3xl font-bold text-navy">00</span>
+                        <span class="text-[10px] uppercase tracking-widest">Hours</span>
+                    </div>
+                    <div class="glass p-3 md:p-5 rounded-2xl">
+                        <span id="minutes" class="block text-2xl md:text-3xl font-bold text-navy">00</span>
+                        <span class="text-[10px] uppercase tracking-widest">Mins</span>
+                    </div>
+                    <div class="glass p-3 md:p-5 rounded-2xl">
+                        <span id="seconds" class="block text-2xl md:text-3xl font-bold text-navy">00</span>
+                        <span class="text-[10px] uppercase tracking-widest">Secs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-navy/50">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </div>
+        </section>
+
+       
+  <section class="relative py-24 bg-white px-4">
+     
+	<div class="absolute inset-0 opacity-40">
+                <img src="img/BG-1.JFIF" class="w-full h-full object-cover" alt="G">
+                <div class="absolute inset-0"></div>
+            </div>
+            
+             <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h2 class="font-serif text-4xl md:text-5xl text-navy mb-4">Assalamu’alaikum Wr. Wb.</h2>
+                    <p class="text-black-600 max-w-2xl mx-auto">Wahai manusia, bertakwalah kepada Tuhanmu yang telah menciptakanmu dari diri yang satu (Adam) dan Dia menciptakan darinya pasangannya (Hawa). Dari keduanya Allah memperkembangbiakkan laki-laki dan perempuan yang banyak. Bertakwalah kepada Allah yang dengan nama-Nya kamu saling meminta dan (peliharalah) hubungan kekeluargaan. Sesungguhnya Allah selalu menjaga dan mengawasimu.
+
+Q.s annisa:1</p>
+                </div>
+
+
+
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <!-- Groom -->
+                    <div class="text-center" data-aos="fade-right">
+                        <div class="relative inline-block mb-8">
+                            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-soft-blue shadow-2xl mx-auto relative z-10">
+                                <img src="img/bagas1.JFIF" height="500px" width="500px" alt="Groom">
+                            </div>
+                            <div class="absolute -inset-4 bg-navy/5 rounded-full blur-2xl -z-10"></div>
+                        </div>
+                        <h3 class="font-serif text-3xl text-navy mb-2">Bagas Pahlawan Saputra</h3>
+                        <p class="text-black-500 mb-4"><b>Putra Pertama</b></p>
+                        <p class="font-bold text-navy">Bpk.Aif Saifudin & Ibu Ratna Sari</p>
+                    </div>
+
+                    <!-- Bride -->
+                    <div class="text-center" data-aos="fade-left">
+                        <div class="relative inline-block mb-8">
+                            <div class="w-100 h-100 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-soft-blue shadow-2xl mx-auto relative z-10">
+                                <img src="img/elvi1.JFIF" alt="Bride">
+                            </div>
+                            <div class="absolute -inset-4 bg-navy/5 rounded-full blur-2xl -z-10"></div>
+                        </div>
+                        <h3 class="font-serif text-3xl text-navy mb-2">Elvinda Arisqa Sudrajat</h3>
+                        <p class="text-black-500 mb-4"><b>Putri Pertama</b></p>
+                        <p class="font-bold text-navy">Bpk.Imam Sudrajat & Ibu Koriyah(Engkoy)</p>
+                    </div>
+                </div>
+	      </div>
+            
+        </section>
+
+        <section class="relative py-24 bg-soft-blue/30 px-4 overflow-hidden">
+<div class="absolute inset-0 opacity-40">
+                <img src="img/BG-1.JFIF" class="w-full h-full object-cover" alt="G">
+                <div class="absolute inset-0"></div>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span class="text-navy/50 tracking-widest uppercase text-xs">Our Journey</span>
+                    <h2 class="font-serif text-4xl text-navy mt-2">Love Story</h2>
+                </div>
+
+                <div class="relative">
+                    <!-- Timeline Line -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-navy/20"></div>
+
+                    <!-- Story 1 -->
+                    <div class="relative flex justify-between items-center w-full mb-12" data-aos="fade-up">
+                        <div class="w-5/12 hidden md:block"></div>
+                        <div class="z-20 flex items-center order-1 bg-navy shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                        </div>
+                        <div class="order-1 glass rounded-2xl shadow-xl w-full md:w-5/12 px-6 py-4">
+                            <h3 class="mb-1 font-bold text-navy text-xl">The First Meet</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600 italic"><b>14 January 2023</b></p>
+                            <p class="text-sm mt-2 text-gray-700">Percayalah, tidak ada satu pun yang kebetulan di dunia ini. Semua telah tersusun rapih oleh sang pencipta. Kami bertemu pertama kali tanpa sengaja pada bulan</p>
+                        </div>
+                    </div>
+
+                    <!-- Story 2 -->
+                    <div class="relative flex justify-between items-center w-full mb-12" data-aos="fade-up">
+                        <div class="order-1 glass rounded-2xl shadow-xl w-full md:w-5/12 px-6 py-4 text-left md:text-right">
+                            <h3 class="mb-1 font-bold text-navy text-xl">The Journey</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600 italic"></p>
+                            <p class="text-sm mt-2 text-gray-700">Menjalani Hubungan Perjalanan cinta kami bukan tanpa ujian. Kami dihadapkan pada jarak yang memisahkan kita sekitar 6 bulan dan dilengkapi keraguan di hadapan pada pilihan sulit bahkan sempat terlintas keinginan untuk menyerah. Entah sudah berapa kali kami saling menenangkan dan kembali menguatkan.</p>
+                        </div>
+                        <div class="z-20 flex items-center order-1 bg-navy shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">2</h1>
+                        </div>
+                        <div class="w-5/12 hidden md:block"></div>
+                    </div>
+
+                    <!-- Story 3 -->
+                    <div class="relative flex justify-between items-center w-full mb-12" data-aos="fade-up">
+                        <div class="w-5/12 hidden md:block"></div>
+                        <div class="z-20 flex items-center order-1 bg-navy shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                        </div>
+                        <div class="order-1 glass rounded-2xl shadow-xl w-full md:w-5/12 px-6 py-4">
+                            <h3 class="mb-1 font-bold text-navy text-xl">Engagement</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600 italic"><b>12 July 2025</b></p>
+                            <p class="text-sm mt-2 text-gray-700">Lamaran 12 July 2025 Atas kehendaknya serta restu dari orang tua dan keluarga kami melangsungkan lamaran pada tanggal, semakin ditentukan tanggalnya, semakin kencang cobaannya.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- Story 4 -->
+                    <div class="relative flex justify-between items-center w-full mb-12" data-aos="fade-up">
+                        <div class="w-5/12 hidden md:block"></div>
+                        <div class="z-20 flex items-center order-1 bg-navy shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">4</h1>
+                        </div>
+                        <div class="order-1 glass rounded-2xl shadow-xl w-full md:w-5/12 px-6 py-4">
+                            <h3 class="mb-1 font-bold text-navy text-xl">The Wedding</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600 italic"><b> 06 June 2026</b></p>
+                            <p class="text-sm mt-2 text-gray-700">Menikah Percayalah bukan karena bertemu lalu berjodoh, tapi karena berjodohlah kami dipertemukan. Kami memutuskan untuk mengikrarkan janji suci pernikahan kami yang insyaallah di bulan Juni ini.Sebagaimana yang pernah dikatakan oleh Ali bin Thalib: "Apa yang menjadi takdirmu, akan menemukan jalannya untuk menemukanmu."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="event" class="relative py-24 px-4 bg-white">
+<div class="absolute inset-0 opacity-40">
+                <img src="img/BG-1.JFIF" class="w-full h-full object-cover" alt="G">
+                <div class="absolute inset-0"></div>
+            </div>
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="font-serif text-4xl md:text-5xl text-navy">Save the Date</h2>
+                    <div class="h-1 w-24 bg-navy mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Akad Nikah -->
+                    <div class="glass p-8 rounded-3xl text-center border-t-8 border-navy shadow-lg" data-aos="flip-left">
+                        <div class="mb-6 text-navy">
+                            <i class="fas fa-heart text-4xl animate-pulse"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl mb-4 text-navy">Akad Nikah</h3>
+                        <p class="font-bold text-lg mb-2">Saturday, 06 June 2026</p>
+                        <p class="text-gray-600 mb-6 italic">08:00 WIB - 10:00 WIB</p>
+                        <div class="h-[1px] w-full bg-navy/10 mb-6"></div>
+                        <p class="font-bold">SMKN 16 Jakarta</p>
+                        <p class="text-sm text-gray-500">Jl. Taman Amir Hamzah No.1, Menteng, Jakarta Pusat</p>
+                    </div>
+
+                    <!-- Resepsi -->
+                    <div class="glass p-8 rounded-3xl text-center border-t-8 border-silver shadow-lg" data-aos="flip-right">
+                        <div class="mb-6 text-navy">
+                            <i class="fas fa-glass-cheers text-4xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl mb-4 text-navy">Wedding Reception</h3>
+                        <p class="font-bold text-lg mb-2">Saturday, 06 June 2026</p>
+                        <p class="text-gray-600 mb-6 italic">11:00 WIB - SELESAI</p>
+                        <div class="h-[1px] w-full bg-navy/10 mb-6"></div>
+                        <p class="font-bold">SMKN 16 Jakarta</p>
+                        <p class="text-sm text-gray-500">Main Hall - SMKN 16 Jakarta</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center" data-aos="fade-up">
+                    <a href="https://maps.app.goo.gl/uXv7uV6p4q6z" target="_blank" class="inline-flex items-center gap-2 bg-navy text-white px-10 py-4 rounded-full shadow-xl hover:scale-105 transition-transform">
+                        <i class="fas fa-map-marker-alt"></i> View Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative w-full h-screen overflow-hidden">
+
+    <!-- Background Video -->
+    
+        <video autoplay muted loop playsinline
+        class="absolute inset-0 w-full h-full object-contain md:object-cover object-center">
+            <source src="video/v3.MP4" type="video/mp4">
+        </video>
+    
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-4xl text-white">Our Moments</h2>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="gallery-item overflow-hidden border-4 rounded-2xl h-64" data-aos="zoom-in">
+                        <img src="img/be1.JFIF" class="w-full h-full object-cover cursor-pointer" alt="Gallery">
+                    </div>
+                    <div class="gallery-item overflow-hidden border-4 rounded-2xl h-80" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="img/be2.JFIF" class="w-full h-full object-cover cursor-pointer" alt="Gallery">
+                    </div>
+                    <div class="gallery-item overflow-hidden border-4 rounded-2xl h-64" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="img/be3.JFIF" class="w-full h-full object-cover cursor-pointer" alt="Gallery">
+                    </div>
+                    <div class="gallery-item overflow-hidden border-4 rounded-2xl h-80" data-aos="zoom-in" data-aos-delay="300">
+                        <img src="img/be4.JFIF" class="w-full h-full object-cover cursor-pointer" alt="Gallery">
+                    </div>
+                </div>
+            </div>
+</section>
+        <section class="relative py-24 bg-white px-4">
+<div class="absolute inset-0 opacity-40">
+                <img src="img/BG-1.JFIF" class="w-full h-full object-cover" alt="G">
+                <div class="absolute inset-0"></div>
+            </div>
+
+     
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="font-serif text-4xl text-navy mb-4">Wedding Gift</h2>
+                <p class="text-gray-600 mb-12">Your presence is a gift to us, but if you wish to give, you can do so through the digital envelope below.</p>
+
+                <div class="space-y-6">
+                    <!-- Bank Card 1 -->
+                    <div class="glass p-8 rounded-3xl relative overflow-hidden group hover:bg-sky-200/30 group hover:shadow-2xl transition-all" data-aos="fade-up">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-credit-card text-6xl"></i>
+                        </div>
+                        <img src="img/dana.JFIF" class="h-8 mb-6 mx-auto grayscale group-hover:grayscale-0 transition-all" alt="DANA">
+                        <p class="text-xl font-bold tracking-widest text-navy mb-2">085767340103</p>
+                        <p class="text-sm text-gray-500 mb-6 uppercase">A/N BAGAS PAHLAWAN PUTRA</p>
+                        <button onclick="copyToClipboard('085767340103')" class="px-6 py-2 bg-navy text-white rounded-full text-sm font-semibold hover:bg-opacity-90 active:scale-95 transition-all">
+                            Copy Account Number
+                        </button>
+                    </div>
+
+                    <!-- Bank Card 2 -->
+                    <div class="glass p-8 rounded-3xl relative overflow-hidden group hover:bg-sky-200/30 group hover:shadow-2xl transition-all" data-aos="fade-up">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i class="fas fa-credit-card text-6xl"></i>
+                        </div>
+                        <img src="img/bca.JFIF" class="h-8 mb-6 mx-auto grayscale group-hover:grayscale-0 transition-all" alt="BCA">
+                        <p class="text-xl font-bold tracking-widest text-navy mb-2">5370442594</p>
+                        <p class="text-sm text-gray-500 mb-6 uppercase">A/N ELVINDA ARISQA SUDRAJAT</p>
+                        <button onclick="copyToClipboard('5370442594')" class="px-6 py-2 bg-navy text-white rounded-full text-sm font-semibold hover:bg-opacity-90 active:scale-95 transition-all">
+                            Copy Account Number
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-navy text-white px-4">
+            <div class="max-w-xl mx-auto">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="font-serif text-4xl mb-4">RSVP</h2>
+                    <p class="opacity-80">Please let us know if you can attend</p>
+                </div>
+
+                <form id="rsvp-form" class="space-y-6" data-aos="fade-up">
+                    <div>
+                        <input type="text" placeholder="Full Name" class="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-3 focus:outline-none focus:border-white/50 transition-all" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <select class="bg-white/10 border border-white/20 rounded-xl px-5 py-3 focus:outline-none focus:border-white/50 transition-all appearance-none" required>
+                            <option value="" disabled selected class="text-black">Attendance</option>
+                            <option value="yes" class="text-black">Yes, I will attend</option>
+                            <option value="no" class="text-black">No, I can't attend</option>
+                        </select>
+                        <input type="number" placeholder="Guests" class="bg-white/10 border border-white/20 rounded-xl px-5 py-3 focus:outline-none focus:border-white/50 transition-all" min="1" max="5" value="1">
+                    </div>
+                    <div>
+                        <textarea placeholder="Wishes & Prayers" rows="4" class="w-full bg-white/10 border border-white/20 rounded-xl px-5 py-3 focus:outline-none focus:border-white/50 transition-all" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-white text-navy rounded-xl font-bold hover:bg-soft-blue transition-colors">
+                        Send RSVP
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="py-24 text-center px-4 bg-white relative overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-soft-blue/30 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-navy/5 rounded-full blur-3xl"></div>
+
+            <div class="relative z-10" data-aos="zoom-in">
+                <p class="font-serif italic text-xl text-gray-500 mb-6">It is a joy for us if you can join us on our special day.</p>
+                <h2 class="font-serif text-5xl md:text-6xl text-navy mb-8">Bagas & Elvinda</h2>
+                <p class="text-sm uppercase tracking-[0.5em] text-gray-400 mb-12">06 . 06 . 2026</p>
+                
+                <p class="font-signature text-4xl text-navy mb-12">See you there!</p>
+
+                <div class="text-xs text-gray-400">
+                    <p>&copy; 2026 Created with <i class="fas fa-heart text-red-400"></i> for Bagas & Elvinda</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <div id="toast" class="fixed top-10 left-1/2 -translate-x-1/2 z-[200] glass px-6 py-3 rounded-full shadow-2xl transition-all duration-500 translate-y-[-100px] opacity-0 text-navy font-semibold pointer-events-none">
+        Copied to clipboard!
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const to = urlParams.get('to');
+            if (to) {
+                document.getElementById('guest-name').innerText = to;
+            } else {
+                document.getElementById('guest-name').innerText = 'Our Special Guest';
+            }
+        });
+
+        const btnOpen = document.getElementById('btn-open');
+        const openingScreen = document.getElementById('opening-screen');
+        const mainContent = document.getElementById('main-content');
+        const musicContainer = document.getElementById('music-container');
+        const bgMusic = document.getElementById('bg-music');
+
+        btnOpen.addEventListener('click', () => {
+            // Play Music
+            bgMusic.play().catch(e => console.log("Autoplay blocked"));
+            
+            // GSAP Intro Animation
+            gsap.to(openingScreen, {
+                y: '-100%',
+                duration: 1.5,
+                ease: "power4.inOut",
+                onComplete: () => {
+                    openingScreen.style.display = 'none';
+                    document.body.classList.remove('no-scroll');
+                }
+            });
+
+            gsap.to(mainContent, {
+                opacity: 1,
+                duration: 1,
+                delay: 0.5
+            });
+
+            musicContainer.classList.remove('hidden');
+        });
+
+        const musicToggle = document.getElementById('music-toggle');
+        let isPlaying = true;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicToggle.classList.remove('music-rotate');
+                musicToggle.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                bgMusic.play();
+                musicToggle.classList.add('music-rotate');
+                musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        const targetDate = new Date("June 6, 2026 08:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Toast Message
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, 0)';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, -100px)';
+            }, 2000);
+        }
+
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = 'Thank You!';
+                btn.style.backgroundColor = '#d1fae5';
+                btn.style.color = '#065f46';
+                
+                // Show a fake success toast
+                const toast = document.getElementById('toast');
+                toast.innerText = 'RSVP Sent Successfully!';
+                toast.style.opacity = '1';
+                toast.style.transform = 'translate(-50%, 0)';
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translate(-50%, -100px)';
+                }, 3000);
+            }, 1500);
+        });
+
+    </script>
+</body>
+</html>
